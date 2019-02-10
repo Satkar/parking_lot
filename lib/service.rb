@@ -1,5 +1,5 @@
 module ParkingLot
-	class Service
+  class Service
 
-	end
+  end
 end
