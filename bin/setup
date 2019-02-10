@@ -1,0 +1,14 @@
+#!/bin/sh
+# Add script to:
+# * Install dependencies
+# * Build/Compile
+# * Run Test Suit to validate
+#
+# After this is run, bin/parking_lot
+# should Just Work.
+
+
+# Set up Ruby dependencies
+# BUNDLE_GEMFILE="./functional_spec/Gemfile" bundle install
+
+bin/parking_lot
