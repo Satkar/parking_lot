@@ -17,9 +17,8 @@ module ParkingLot
     #   ParkingLot::Service.new.create_parking_lot(number)
     # => "Created a parking lot with #{number} slots"
     def create_parking_lot(number)
-      @slots = ParkingLot::Slots.new(6)
-      message = "Created a parking lot with #{@slots.list.count} slots"
-      puts message
+      @slots = ParkingLot::Slots.new(number)
+      message = "Created a parking lot with #{number} slots"
       message
     end
 
@@ -37,14 +36,12 @@ module ParkingLot
 
       unless immidiate_available_slot
         parking_full = 'Sorry, parking lot is full'
-        puts parking_full
         return parking_full
       end
 
       car = ParkingLot::Car.new(car_number, color)
       slots.list[immidiate_available_slot] = car
       message = "Allocated slot number: #{immidiate_available_slot}"
-      puts message
       message
     end
 
@@ -62,18 +59,18 @@ module ParkingLot
         slots.closest_available_slot
       end
       message = "Slot number #{slot_number} is free"
-      puts message
       message
     end
 
     # This method returns the status parked cars
     def status
       puts "Slot No.    Registration No    Colour"
-      slots.list.each do |k, v|
+      slots.list.map do |k, v|
         if v
           puts "#{k}           #{v.number}      #{v.color}"
         end
       end
+      nil
     end
 
     # This method returns registration number of cars whith specific color
@@ -85,7 +82,6 @@ module ParkingLot
     def registration_numbers_for_cars_with_colour(color)
       cars = slots.list.values.compact
       list = cars.map{|c| c.number if c.color == color }.compact.join(', ')
-      puts cars.map{|c| c.number if c.color == color }.compact.join(', ')
       list
     end
 
@@ -101,7 +97,6 @@ module ParkingLot
         nums << k if v && v.color == color
       end
       list = nums.join(', ')
-      puts list
       list
     end
 
@@ -117,13 +112,10 @@ module ParkingLot
     def slot_number_for_registration_number(car_number)
       slots.list.each do |k, v|
         if v && v.number == car_number
-          puts k
           return k
         end
       end
       message = 'Not found'
-      puts message
-      message
     end
 
   end

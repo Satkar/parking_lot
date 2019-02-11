@@ -11,7 +11,7 @@ module ParkingLot
     #   ParkingLot::Slots.new(6)
   	def initialize(number)
   		@list = {}
-  		1.upto(number) do |i|
+  		1.upto(number.to_i) do |i|
       	@list[i] = nil
     	end
     	@size = number

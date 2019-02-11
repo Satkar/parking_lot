@@ -31,7 +31,7 @@ RSpec.describe 'Parking Lot' do
 Slot No.    Registration No    Colour
 1           KA-01-HH-1234      White
 2           KA-01-HH-3141      Black
-3           KA-01-HH-9999      White
+3           KA-01-HH-9999      White\n
 EOTXT
 )
   end

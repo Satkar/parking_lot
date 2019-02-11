@@ -20,3 +20,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Important: Above commands is just examples, please modify to suit your requirement as necessary
 
 ruby $DIR/../lib/parking_lot_consumer.rb $1
+

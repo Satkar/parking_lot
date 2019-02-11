@@ -1,35 +1,66 @@
 require './lib/service.rb'
 
-# s = ParkingLot::Service.new
+class ParkingLotConsumer
 
-# s.create_parking_lot 6
-# s.park 'KA-01-HH-1234', 'White'
-# s.park 'KA-01-HH-9999', 'White'
-# s.park 'KA-01-BB-0001', 'Black'
-# s.park 'KA-01-HH-7777', 'Red'
-# s.park 'KA-01-HH-2701', 'Blue'
-# s.park 'KA-01-HH-3141', 'Black'
-# s.leave 4
-# s.status
-# s.park 'KA-01-P-333', 'White'
-# s.park 'DL-12-AA-9999', 'White'
-# s.registration_numbers_for_cars_with_colour 'White'
-# s.slot_numbers_for_cars_with_colour 'White'
-# s.slot_number_for_registration_number 'KA-01-HH-3141'
-# s.slot_number_for_registration_number 'MH-04-AY-1111'
+  class << self
+    attr_accessor :input_file_path, :output_file_path, :parking_service
+  end
 
-module ParkingLot
-  class ParkingLotConsumer
-    def self.parking_lot_operation(file_path)
-      parking_service = ParkingLot::Service.new
-      return puts "File not found" unless File.file?(file_path)
-        File.open("#{file_path}", "r").each_line do |line|
+  def self.iniatiate_parking_lot_service
+    @parking_service = ParkingLot::Service.new
+  end
+
+  def self.process_input_and_display_result(input)
+    output = execute_command(input) unless input == 'exit'
+    STDOUT.puts output
+  end
+
+  def self.exit_loop?(input)
+    %w(exit).include?(input)
+  end
+
+  def self.execute_command(input)
+    ar = input.split(" ")
+    params = ar - [ar[0]]
+    output_message = parking_service.send(ar[0], *params)
+  end
+
+
+  def self.detect_file_input(argument)
+    return false unless argument
+    @input_file_path, @output_file_path = argument.split('>').collect(&:strip)
+    return false unless File.exists?(input_file_path) or File.exists?(output_file_path)
+    true
+  end
+
+  def self.initiate_file_mode
+    return puts "File not found" unless File.file?(input_file_path)
+    File.open("#{input_file_path}", "r").each_line do |line|
         ar = line.split(" ")
         params = ar - [ar[0]]
-        parking_service.send(ar[0], *params)
-      end
+        result = parking_service.send(ar[0], *params)
+        puts result if result
     end
   end
+
+  def self.initiate_interactive_mode
+    begin
+      input = STDIN.gets.strip
+      process_input_and_display_result(input)
+    end until exit_loop?(input)
+  end
+
+  def self.run
+    iniatiate_parking_lot_service
+    files_path_given = detect_file_input(ARGV[0])
+    if files_path_given
+      initiate_file_mode
+    else
+      initiate_interactive_mode
+    end
+  end
+
 end
 
-ParkingLot::ParkingLotConsumer.parking_lot_operation(ARGV[0])
+ParkingLotConsumer.run
+

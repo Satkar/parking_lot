@@ -9,6 +9,6 @@
 
 
 # Set up Ruby dependencies
-# BUNDLE_GEMFILE="./functional_spec/Gemfile" bundle install
-
-bin/parking_lot
+bundle install
+bin/run_unit_test
+bin/run_functional_tests
