@@ -2,7 +2,7 @@
 module ParkingLot
   class Slots
 
-  	attr_accessor :list, :size, :next_available_slot
+  	attr_accessor :list, :next_available_slot
 
   	# This method initializes an object of slots class
     # Params:
@@ -14,7 +14,6 @@ module ParkingLot
   		1.upto(number.to_i) do |i|
       	@list[i] = nil
     	end
-    	@size = number
     	@next_available_slot = 1
     end
 

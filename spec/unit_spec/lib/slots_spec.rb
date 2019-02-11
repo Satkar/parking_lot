@@ -10,7 +10,6 @@ RSpec.describe ParkingLot::Slots do
     it "Should return an object of slots" do
       expect(slots).not_to be_nil
       expect(slots.list.count).to eq(number)
-      expect(slots.size).to eq(number)
       expect(slots.next_available_slot).to eq(1)
     end
 

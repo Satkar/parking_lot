@@ -118,5 +118,10 @@ module ParkingLot
       message = 'Not found'
     end
 
+    # Handles if any wrong command is sent
+    def method_missing(method_name, *args, &block)
+      return "#{method_name} command not found."
+    end
+
   end
 end
