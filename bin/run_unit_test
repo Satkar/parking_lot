@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+cmd = "bundle install; bundle exec rspec spec/unit_spec"
+puts cmd
+system cmd

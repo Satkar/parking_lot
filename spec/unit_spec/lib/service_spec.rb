@@ -46,7 +46,7 @@ RSpec.describe ParkingLot::Service do
   		end
 
 	    it "Should return parking full messsage" do
-	      expect(park).to eq("Sorry, parking lot is full.")
+	      expect(park).to eq("Sorry, parking lot is full")
 	    end
 	  end
   end

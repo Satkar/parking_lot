@@ -36,7 +36,7 @@ module ParkingLot
       immidiate_available_slot = slots.closest_available_slot
 
       unless immidiate_available_slot
-        parking_full = 'Sorry, parking lot is full.'
+        parking_full = 'Sorry, parking lot is full'
         puts parking_full
         return parking_full
       end
@@ -55,7 +55,7 @@ module ParkingLot
     #   ParkingLot::Service.new.leave(4)
     # => "Slot number 4 is free"
     def leave(slot_number)
-      slots.list[slot_number] = nil
+      slots.list[slot_number.to_i] = nil
       if slots.next_available_slot > slot_number.to_i
         slots.next_available_slot = slot_number.to_i
       else
@@ -68,10 +68,10 @@ module ParkingLot
 
     # This method returns the status parked cars
     def status
-      puts "Slot No Registration No  Color"
+      puts "Slot No.    Registration No    Colour"
       slots.list.each do |k, v|
         if v
-          puts "#{k}  #{v.number} #{v.color}"
+          puts "#{k}           #{v.number}      #{v.color}"
         end
       end
     end
