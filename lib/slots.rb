@@ -18,6 +18,7 @@ module ParkingLot
     	@next_available_slot = 1
     end
 
+    # This method returns a closest available slot if no slots availabe returns a `nil`
     def closest_available_slot
     	self.list.each do |slot, car|
     		return self.next_available_slot = slot unless car
